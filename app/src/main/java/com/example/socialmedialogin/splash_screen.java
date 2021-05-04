@@ -29,7 +29,7 @@ public class splash_screen extends AppCompatActivity {
             public void run() {
                 startEnterAnimation();
             }
-        },3500);
+        },2000);
 
         new Handler().postDelayed(new Runnable() {
             @Override
