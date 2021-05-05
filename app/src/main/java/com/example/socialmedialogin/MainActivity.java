@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,13 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 
 import org.json.JSONException;
@@ -35,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private TextView txtName,txtEmail;
     private CallbackManager callbackManager;
+    SignInButton signin;
+    GoogleSignInClient mGoogleSignInClient;
+    int RC_SIGN_IN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         circleImageView = findViewById(R.id.profile_pic);
         txtName = findViewById(R.id.profile_name);
         txtEmail = findViewById(R.id.profile_email);
+        signin = findViewById(R.id.sign_in_button);
+        signin.setSize(SignInButton.SIZE_STANDARD);
+
 
 
         callbackManager = CallbackManager.Factory.create();
@@ -53,28 +68,37 @@ public class MainActivity extends AppCompatActivity {
         login_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
             }
 
             @Override
             public void onCancel() {
-
             }
 
             @Override
             public void onError(FacebookException error) {
-
             }
         });
 
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        callbackManager.onActivityResult(requestCode,resultCode,data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+       signin.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               switch (view.getId()) {
+                   case R.id.sign_in_button:
+                       signIn();
+                       break;
+               }
+           }
+       });
+
+
+    }
 
 
     AccessTokenTracker tokenTracker = new AccessTokenTracker() {
@@ -133,4 +157,36 @@ public class MainActivity extends AppCompatActivity {
             loaduserProfile(AccessToken.getCurrentAccessToken());
         }
     }
+
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+        else
+        {
+            callbackManager.onActivityResult(requestCode,resultCode,data);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        } catch (ApiException e) {
+            Log.v("Error", "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+
 }

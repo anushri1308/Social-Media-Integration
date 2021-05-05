@@ -8,8 +8,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_pic"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
@@ -39,8 +39,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/profile_email"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_marginBottom="283dp" />
+        android:layout_margin="15dp"
+        android:padding="10dp"/>
 
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_button"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
