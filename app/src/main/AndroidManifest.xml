@@ -6,12 +6,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/sparks2"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/sparks2"
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaLogin">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity"
+            android:label="@string/user">
+        </activity>
         <activity
             android:name=".splash_screen"
             android:screenOrientation="portrait"

@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/sparks"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/sparks1" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_pic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/sparks"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/profile_name"
@@ -20,33 +29,56 @@
         android:layout_below="@id/profile_pic"
         android:layout_centerHorizontal="true"
         android:textColor="#1B2DC8"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:textSize="20dp" />
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/profile_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/profile_name"
-        android:textColor="#1B2DC8"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp" />
+        android:textColor="#1B2DC8"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/profile_email"
+        android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
-        android:padding="10dp"/>
-
+        android:padding="10dp" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp" />
+
+    <TextView
+        android:id="@+id/privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sign_in_button"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="By clicking on login, you are accepting our privacy policy \n and terms &amp; conditions." />
+
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/privacy"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="© 2021 Anushri Gupta for The Sparks Foundation"
+        android:textSize="12dp" />
+
 </RelativeLayout>

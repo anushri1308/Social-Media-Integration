@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".ProfileActivity"
+    android:background="@drawable/gradient">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
@@ -22,7 +23,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="#FF4081"
-        android:textSize="15dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         android:textColor="#FF4081"
         android:layout_margin="10dp"
@@ -41,6 +42,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textEmail"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:text="Signout"/>
+
 </RelativeLayout>

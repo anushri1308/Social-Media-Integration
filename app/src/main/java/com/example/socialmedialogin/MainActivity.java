@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,10 +42,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
     private LoginButton login_button;
+    private ImageView image;
     private CircleImageView circleImageView;
-    private TextView txtName,txtEmail;
+    private TextView txtName,txtEmail,privacy,copyright;
     private CallbackManager callbackManager;
     SignInButton signin;
+
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
 
@@ -54,13 +57,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         login_button = findViewById(R.id.login_button);
+        image = findViewById(R.id.sparks);
         circleImageView = findViewById(R.id.profile_pic);
         txtName = findViewById(R.id.profile_name);
         txtEmail = findViewById(R.id.profile_email);
+        privacy = findViewById(R.id.privacy);
+        copyright = findViewById(R.id.copyright);
         signin = findViewById(R.id.sign_in_button);
         signin.setSize(SignInButton.SIZE_STANDARD);
-
-
 
         callbackManager = CallbackManager.Factory.create();
         login_button.setPermissions(Arrays.asList("email", "public_profile"));
@@ -97,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
-
     }
 
 
@@ -107,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
             if(currentAccessToken==null)
             {
+                image.setVisibility(View.VISIBLE);
+                signin.setVisibility(View.VISIBLE);
+                privacy.setVisibility(View.VISIBLE);
+                copyright.setVisibility(View.VISIBLE);
                 txtName.setText("");
                 txtEmail.setText("");
                 circleImageView.setImageResource(0);
@@ -123,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
+                    image.setVisibility(View.GONE);
+                    signin.setVisibility(View.GONE);
+                    privacy.setVisibility(View.GONE);
+                    copyright.setVisibility(View.GONE);
                     String first_name = object.getString("first_name");
                     String last_name = object.getString("last_name");
                     String email = object.getString("email");
